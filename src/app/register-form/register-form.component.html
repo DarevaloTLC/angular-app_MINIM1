@@ -3,6 +3,7 @@
   <div class="tabs">
     <button (click)="setActiveTab('user')" [class.active]="activeTab === 'user'">Registrar Usuario</button>
     <button (click)="setActiveTab('packet')" [class.active]="activeTab === 'packet'">Registrar Paquete</button>
+    <button (click)="setActiveTab('comment')" [class.active]="activeTab === 'comment'">Registrar Comentario</button>
   </div>
 
   <!-- Formulario de Registro de Usuario -->
@@ -38,4 +39,19 @@
 
     <button type="submit" class="button add-button">Registrar Paquete</button>
   </form>
+
+  <!-- Formulario de Registro de Comentario-->
+   <form *ngIf="activeTab === 'comment'" [formGroup]="commentForm" (ngSubmit)="registerComment()">
+    <label for="comment-text">Texto del Comentario:</label>
+    <input type="text" id="comment-text" formControlName="text" required>
+
+    <label for="comment-user">ID del Usuario:</label>
+    <input type="text" id="comment-user" formControlName="user" required>
+
+    <label for="comment-packet">ID del Paquete:</label>
+    <input type="text" id="comment-packet" formControlName="packet" required>
+
+    <button type="submit" class="button add-button">Registrar Comentario</button>
+  </form>
+
 </div>

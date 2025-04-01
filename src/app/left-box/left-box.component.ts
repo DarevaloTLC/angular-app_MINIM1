@@ -17,4 +17,8 @@ export class LeftBoxComponent {
   sendUserMessage() {
     this.communicationService.sendMessage('user');
   }
+
+  sendCommentMessage() {
+    this.communicationService.sendMessage('comment');
+  }
 }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { PacketService } from '../services/packet.service';
+import { CommentService } from '../services/comment.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -14,9 +15,10 @@ import { CommonModule } from '@angular/common';
 export class RegisterFormComponent {
   registerForm: FormGroup;
   packetForm: FormGroup;
-  activeTab: 'user' | 'packet' = 'user'; // Control de pestañas
+  commentForm: FormGroup;
+  activeTab: 'user' | 'packet' | 'comment' = 'user'; // Control de pestañas
 
-  constructor(private fb: FormBuilder, private userService: UserService, private packetService: PacketService) {
+  constructor(private fb: FormBuilder, private userService: UserService, private packetService: PacketService, private commentService: CommentService) {
     // Formulario de Usuario
     this.registerForm = this.fb.group({
       name: [''],
@@ -32,10 +34,17 @@ export class RegisterFormComponent {
       description: [''],
       status: ['']
     });
+
+    // Formulario de Comentario
+    this.commentForm = this.fb.group({
+      text: [''],
+      user: [''],
+      packet: [''],
+    });
   }
 
   // ✅ Este método estaba faltando, lo agregamos aquí:
-  setActiveTab(tab: 'user' | 'packet') {
+  setActiveTab(tab: 'user' | 'packet' | 'comment') {
     this.activeTab = tab;
   }
 
@@ -73,6 +82,22 @@ export class RegisterFormComponent {
             console.error('Error en el login:', error);
             alert('Error en el paquete, verifica tus credenciales');
           }
+      });
+    }
+  }
+  
+  registerComment() {
+    if (this.commentForm.valid) {
+      const commentData = this.commentForm.value;
+      console.log("commentData:",commentData);
+      this.commentService.createComment(commentData).subscribe({
+        next: (response) => {
+          console.log('Comentario exitoso:', response);
+        },
+        error: (error) => {
+          console.error('Error en el comentario:', error);
+          alert('Error en el comentario, verifica tus credenciales');
+        }
       });
     }
   }

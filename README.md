@@ -57,3 +57,8 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+## Minimo 1
+
+Está todo implementado menos el buscador, básicamente por falta de tiempo. Mi intención era recrear exactamente el formato que hemos usado de verPaquetes de usuario, poner un botón al lado del de ver paquetes que sea el de ver commentarios.
+Por último tener en cuenta que para añadir un comentario necesitamos el id del usuario y del paquete, me he dado cuenta que lo mejor sería hacerlo con el nombre, pero no me ha dado tiempo, para probarlo tener la base de datos abierta o algo que nos indique estos parametros.

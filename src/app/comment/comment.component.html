@@ -1,0 +1,52 @@
+<ng-template #noComments>
+  <div>No hay comentarios disponibles</div>
+</ng-template>
+<div class="comentario-lista">
+  <div *ngIf="commentList.length > 0; else noComments">
+    <table class="table">
+      <tbody>
+        <tr *ngFor="let comentario of displayedComments">
+          <td class="checkbox-cell">
+            <input type="checkbox" [checked]="comentario.seleccionado" (change)="toggleSeleccion(comentario)" />
+          </td>
+          <td class="comment-info">
+            <!-- Mostrar el texto del comentario si no está en modo de edición -->
+            <p *ngIf="!comentario.editing">Contenido del comentario: {{ comentario.text }}</p>
+
+            <!-- Campo de entrada para editar el texto si está en modo de edición -->
+            <input
+              *ngIf="comentario.editing"
+              type="text"
+              [(ngModel)]="comentario.text"
+              class="edit-input"
+              placeholder="Editar texto del comentario"
+            />
+
+            <p>Publicado por el usuario: {{ comentario.user }}</p>
+            <p>Paquete al que pertenece: {{ comentario.packet }}</p>
+            <p>Fecha de publicación: {{ comentario.createdAt | date }}</p>
+          </td>
+          <td>
+            <!-- Botones para guardar o cancelar la edición -->
+            <button *ngIf="comentario.editing" class="save-comment-button" (click)="saveEdit(comentario)">Guardar</button>
+            <button *ngIf="comentario.editing" class="cancel-comment-button" (click)="cancelEdit(comentario)">Cancelar</button>
+
+            <!-- Botón para habilitar el modo de edición -->
+            <button *ngIf="!comentario.editing" class="edit-comment-button" (click)="enableEdit(comentario)">Editar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div>
+  <a class="button delete-button" (click)="confirmarEliminacion()">Eliminar Comentarios Seleccionados</a>
+</div>
+
+<mat-paginator
+  [length]="totalItems"
+  [pageSize]="itemsPerPage"
+  [pageSizeOptions]="[3, 5, 10]"
+  (page)="onPageChange($event)">
+</mat-paginator>
